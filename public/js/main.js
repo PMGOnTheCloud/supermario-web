@@ -4,7 +4,6 @@ import KeyboardState from './keyboard.js';
 import { loadLevel } from './loaders.js';
 import { loadBackgroundSprites } from './sprites.js';
 import { createMario } from './entities.js';
-import { createBackgroundLayer, createSpriteLayer } from './layers.js';
 
 
 
@@ -25,15 +24,7 @@ Promise.all([
     backgroundSprites,
     level
 ]) => {
-    
-    const comp = new Compositor();
-    
-    const backgroundLayer = createBackgroundLayer(level.backgrounds, backgroundSprites);
-    comp.layers.push(backgroundLayer);
-
-
-    
-
+        
     const gravity = 2000;
     mario.pos.set(64, 180);
 
@@ -48,8 +39,8 @@ Promise.all([
     });
     input.listenTo(window);
 
-    const spriteLayer = createSpriteLayer(mario);
-    comp.layers.push(spriteLayer);
+
+    
 
 
     const timer = new Timer(1/60);
