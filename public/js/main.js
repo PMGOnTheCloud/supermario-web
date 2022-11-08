@@ -1,8 +1,8 @@
 import Timer from './timer.js';
-import KeyboardState from './keyboard.js';
 import { loadLevel } from './loaders.js';
 import { createMario } from './entities.js';
 import { createCollisionLayer } from './layers.js';
+import { setupKeyboard } from './input.js';
 
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
@@ -24,22 +24,8 @@ Promise.all([
 
     level.comp.layers.push(createCollisionLayer(level));
 
-    const SPACE = 32;
-    const input = new KeyboardState();
-    input.addMapping(SPACE, keyState => {
-        if (keyState) {
-            mario.jump.start();
-        } else {
-            mario.jump.cancel();
-        }
-    });
-    input.addMapping(39, keyState => {
-        mario.go.dir = keyState;
-    });
-    input.addMapping(37, keyState => {
-        mario.go.dir = -keyState;
-    });
     
+    const input = setupKeyboard(mario);
     input.listenTo(window);
 
 
