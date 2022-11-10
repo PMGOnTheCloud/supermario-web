@@ -1,5 +1,3 @@
-import { Matrix } from './math.js';
-
 export function createBackgroundLayer(level, sprites) {
     const buffer = document.createElement('canvas');
     buffer.width = 2048;
@@ -40,18 +38,18 @@ export function createCollisionLayer(level) {
     const tileResolver = level.tileCollider.tiles;
     const tileSize = tileResolver.tileSize;
 
-    const resolvedTiles = new Matrix();
+    const resolvedTiles = [];
 
     const getByIndexOriginal = tileResolver.getByIndex;
     
     tileResolver.getByIndex = function getByIndexFake(x, y) {
-        resolvedTiles.set(x, y, true);
+        resolvedTiles.push({x, y});
         return getByIndexOriginal.call(tileResolver, x, y);
     }
 
     return function drawCollisions(context, camera) {
         context.strokeStyle = 'blue';
-        resolvedTiles.forEach((value, x, y) => {
+        resolvedTiles.forEach((x, y) => {
             context.beginPath();
             context.rect(
                 x * tileSize - camera.pos.x, 
@@ -73,6 +71,21 @@ export function createCollisionLayer(level) {
             context.stroke();
         });
 
-        resolvedTiles.clear();
+        resolvedTiles.length = 0;
     }
 }
+
+export function createCameraLayer(cameraToDraw) {
+    return function drawCameraRect(context, fromCamera) {
+        context.strokeStyle = 'purple';
+        context.beginPath();
+            context.rect(
+                cameraToDraw.pos.x - fromCamera.pos.x, 
+                cameraToDraw.pos.y - fromCamera.pos.y, 
+                cameraToDraw.size.x, 
+                cameraToDraw.size.y
+            );
+            context.stroke();
+    }
+}
+
