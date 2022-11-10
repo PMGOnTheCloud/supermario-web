@@ -49,7 +49,7 @@ export function createCollisionLayer(level) {
 
     return function drawCollisions(context, camera) {
         context.strokeStyle = 'blue';
-        resolvedTiles.forEach((x, y) => {
+        resolvedTiles.forEach(({x, y}) => {
             context.beginPath();
             context.rect(
                 x * tileSize - camera.pos.x, 
