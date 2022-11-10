@@ -4,7 +4,7 @@ import { loadLevel } from './loaders.js';
 import { createMario } from './entities.js';
 import { setupKeyboard } from './input.js';
 import { setupMouseControl } from './debug.js';
-import { createCollisionLayer } from './layers.js';
+import { createCollisionLayer, createCameraLayer } from './layers.js';
 
 
 const canvas = document.getElementById('screen');
@@ -25,7 +25,7 @@ Promise.all([
         
     mario.pos.set(64, 64);
 
-    level.comp.layers.push(createCollisionLayer(level));
+    level.comp.layers.push(createCollisionLayer(level), createCameraLayer(camera));
 
     level.entities.add(mario);
     
