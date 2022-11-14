@@ -5,6 +5,10 @@ export class Trait {
         this.NAME = name;
     }
 
+    obstruct() {
+        
+    }
+
     update() {
         console.warn('Unhandled update call in Trait');
     }
@@ -23,6 +27,12 @@ export default class Entity {
     addTrait(trait) {
         this.traits.push(trait);
         this[trait.NAME] = trait;
+    }
+
+    obstruct(side) {
+        this.traits.forEach(traits => {
+            traits.obstruct(this, side);
+        });
     }
 
     update(deltaTime) {
