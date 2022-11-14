@@ -4,7 +4,7 @@ export function setupKeyboard(entity) {
     
     const input = new KeyboardState();
     
-    input.addMapping('Space', keyState => {
+    input.addMapping('KeyP', keyState => {
         if (keyState) {
             entity.jump.start();
         } else {
@@ -12,11 +12,11 @@ export function setupKeyboard(entity) {
         }
     });
     
-    input.addMapping('ArrowRight', keyState => {
+    input.addMapping('KeyD', keyState => {
         entity.go.dir += keyState ? 1 : -1;
     });
     
-    input.addMapping('ArrowLeft', keyState => {
+    input.addMapping('KeyA', keyState => {
         entity.go.dir += -keyState ? -1 : 1;
     });
 
