@@ -21,17 +21,24 @@ function loadJSON(url) {
 }
 
 
-function createTiles(level, backgrounds) {
+function createTiles(level, backgrounds, patterns, offsetX = 0, offsetY = 0) {
     
     function applyRange(background, xStart, xLen, yStart, yLen) {
         const xEnd = xStart + xLen;
         const yEnd = yStart + yLen;
         for (let x = xStart; x < xEnd; ++x) {
             for (let y = yStart; y < yEnd; ++y) {
-                level.tiles.set(x, y, {
-                    name: background.tile,
-                    type: background.type
-                });
+                const derivedX = x + offsetX;
+                const derivedY = y + offsetY;
+                if (background.pattern) {
+                    const backgrounds = patterns[background.pattern].backgrounds;
+                    createTiles(level, backgrounds, patterns, derivedX, derivedY);
+                } else {
+                    level.tiles.set(derivedX, derivedY, {
+                        name: background.tile,
+                        type: background.type
+                    });
+                }
             }
         }
     }
@@ -98,7 +105,7 @@ export function loadLevel(name) {
 
         const level = new Level();
         
-        createTiles(level, levelSpec.backgrounds);
+        createTiles(level, levelSpec.backgrounds, levelSpec.patterns);
 
         const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
         level.comp.layers.push(backgroundLayer);
