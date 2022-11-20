@@ -1,7 +1,7 @@
 import Camera from './camera.js';
 import Timer from './timer.js';
 import { loadLevel } from './loaders/level.js';
-import { createMario } from './entities.js';
+import { loadMario } from './entities/mario.js';
 import { setupKeyboard } from './input.js';
 import { createCollisionLayer, createCameraLayer } from './layers.js';
 
@@ -11,7 +11,7 @@ const context = canvas.getContext('2d');
 
 
 Promise.all([
-    createMario(),
+    loadMario(),
     loadLevel('1-1')
 ])
 .then(([
