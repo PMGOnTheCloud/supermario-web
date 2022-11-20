@@ -25,6 +25,7 @@ Promise.all([
     const mario = createMario();
     mario.pos.set(64, 64);
 
+    /*
     mario.addTrait({
         NAME: 'hacktrait',
         spawnTimeout: 0,
@@ -43,6 +44,7 @@ Promise.all([
             this.spawnTimeout += deltaTime;
         }
     });
+    */
 
     level.comp.layers.push(createCollisionLayer(level), createCameraLayer(camera));
 
