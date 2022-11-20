@@ -14,7 +14,7 @@ export function loadMario() {
 
 function createMarioFactory(sprite) {
 
-    const runAnim = createAnim(['run-1', 'run-2', 'run-3'], 8);
+    const runAnim = sprite.animations.get('run');
         
     function routeFrame(mario) {
         if (mario.jump.falling) {
