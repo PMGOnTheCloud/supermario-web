@@ -8,8 +8,11 @@ export function loadGoomba() {
 }
 
 function createGoombaFactory(sprite) {
+
+    const walkAnim = sprite.animations.get('walk');
+
     function drawGoomba(context) {
-        sprite.draw('walk-1', context, 0, 0);
+        sprite.draw(walkAnim(this.lifetime), context, 0, 0);
     }
 
     return function createGoomba() {
