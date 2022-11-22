@@ -16,6 +16,17 @@ function createGoombaFactory(sprite) {
         const goomba = new Entity();
         goomba.size.set(16, 16);
 
+        goomba.addTrait({
+            NAME: 'walk',
+            speed: -30,
+            obstruct() {
+
+            },
+            update(goomba) {
+                goomba.vel.x = this.speed;
+            }
+        })
+
         goomba.draw = drawGoomba;
         
         return goomba;
