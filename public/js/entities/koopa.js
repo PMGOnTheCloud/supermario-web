@@ -1,5 +1,5 @@
 import Entity, { Sides } from "../entity.js";
-import PendulumWalk from "../traits/pendulumwalk.js";
+import PendulumWalkBehaviour from "../traits/pendulumwalkbehaviour.js";
 import { loadSpriteSheet } from '../loaders.js';
 
 
@@ -20,7 +20,7 @@ function createKoopaFactory(sprite) {
         const koopa = new Entity();
         koopa.size.set(16, 16);
 
-        koopa.addTrait(new PendulumWalk());
+        koopa.addTrait(new PendulumWalkBehaviour());
 
         koopa.draw = drawKoopa;
         

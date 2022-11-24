@@ -1,6 +1,6 @@
 import Entity, { Sides, Trait } from "../entity.js";
 
-export default class PendulumWalk extends Trait {
+export default class PendulumWalkBehaviour extends Trait {
     constructor() {
         super('pendulumWalk');
     
