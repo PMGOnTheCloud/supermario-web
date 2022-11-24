@@ -3,6 +3,7 @@ import Timer from './timer.js';
 import { loadLevel } from './loaders/level.js';
 import { loadMario } from './entities/mario.js';
 import { loadGoomba } from './entities/goomba.js';
+import { loadKoopa } from './entities/koopa.js';
 import { setupKeyboard } from './input.js';
 import { createCollisionLayer, createCameraLayer } from './layers.js';
 
@@ -14,11 +15,13 @@ const context = canvas.getContext('2d');
 Promise.all([
     loadMario(),
     loadGoomba(),
+    loadKoopa(),
     loadLevel('1-1')
 ])
 .then(([
     createMario,
     createGoomba,
+    createKoopa,
     level
 ]) => {
 
@@ -31,6 +34,10 @@ Promise.all([
     const goomba = createGoomba();
     goomba.pos.x = 220;
     level.entities.add(goomba);
+
+    const koopa = createKoopa();
+    koopa.pos.x = 260;
+    level.entities.add(koopa);
     
     /*
     mario.addTrait({
