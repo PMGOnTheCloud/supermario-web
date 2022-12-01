@@ -35,6 +35,8 @@ class Behaviour extends Trait {
     }
 
     collides(us, them) {
-        us.pendulumWalk.speed = 0;
+        if (them.stomper) {
+            us.pendulumWalk.speed = 0;
+        }
     }
 }
