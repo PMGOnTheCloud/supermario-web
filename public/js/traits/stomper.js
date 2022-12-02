@@ -1,4 +1,4 @@
-import Entity, { Sides, Trait } from "../entity.js";
+import { Trait } from "../entity.js";
 
 export default class Stomper extends Trait {
     constructor() {
