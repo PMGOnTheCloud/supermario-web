@@ -54,9 +54,9 @@ class Behaviour extends Trait {
                 us.killable.kill();
                 them.stomper.bounce();
                 us.pendulumWalk.speed = 0;
-            }            
-        } else {
-            them.killable.kill();
-        }
+            } else {
+                them.killable.kill();
+            }        
+        } 
     }
 }
