@@ -1,10 +1,20 @@
 import Camera from './camera.js';
 import Timer from './timer.js';
+import Entity from './entity.js';
+import PlayerController from './traits/playercontroller.js';
 import { createLevelLoader } from './loaders/level.js';
 import { setupKeyboard } from './input.js';
 import { createCollisionLayer, createCameraLayer } from './layers.js';
 import { loadEntities } from './entities.js';
 
+
+function createPlayerEnv(playerEntity) {
+    const playerEnv = new Entity();
+    const playerControl = new PlayerController();
+    playerControl.setPlayer(playerEntity);
+    playerEnv.addTrait(playerControl);
+    return playerEnv;
+}
 
 async function main(canvas) {
     const context = canvas.getContext('2d');
@@ -20,6 +30,10 @@ async function main(canvas) {
     const mario = entityFactory.mario();
     mario.pos.set(64, 64);
     
+    const playerEnv = createPlayerEnv(mario);
+    level.entities.add(playerEnv);
+
+
     /*
     mario.addTrait({
         NAME: 'hacktrait',
@@ -53,7 +67,7 @@ async function main(canvas) {
         level.update(deltaTime);
 
         if (mario.pos.x > 100) {
-            camera.pos.x = mario.pos.x - 100;
+            camera.pos.x = Math.max(0, mario.pos.x - 100);
         }
 
         level.comp.draw(context, camera);
