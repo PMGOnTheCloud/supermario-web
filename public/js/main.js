@@ -11,6 +11,7 @@ import { loadEntities } from './entities.js';
 function createPlayerEnv(playerEntity) {
     const playerEnv = new Entity();
     const playerControl = new PlayerController();
+    playerControl.checkpoint.set(64, 64);
     playerControl.setPlayer(playerEntity);
     playerEnv.addTrait(playerControl);
     return playerEnv;
@@ -28,12 +29,7 @@ async function main(canvas) {
     window.camera = camera;
     
     const mario = entityFactory.mario();
-    mario.pos.set(64, 64);
     
-    const playerEnv = createPlayerEnv(mario);
-    level.entities.add(playerEnv);
-
-
     /*
     mario.addTrait({
         NAME: 'hacktrait',
@@ -57,7 +53,8 @@ async function main(canvas) {
 
     level.comp.layers.push(createCollisionLayer(level), createCameraLayer(camera));
 
-    level.entities.add(mario);
+    const playerEnv = createPlayerEnv(mario);
+    level.entities.add(playerEnv);
     
     const input = setupKeyboard(mario);
     input.listenTo(window);
