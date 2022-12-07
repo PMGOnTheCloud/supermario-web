@@ -15,6 +15,9 @@ const STATE_HIDING = Symbol('hiding');
 class Behaviour extends Trait {
     constructor() {
         super('behaviour');
+
+        this.hideTime = 0;
+        this.hideDuration = 5;
         this.state = STATE_WALKING;
     }
 
@@ -42,7 +45,22 @@ class Behaviour extends Trait {
     hide(us) {
         us.vel.x = 0;
         us.pendulumWalk.speed = 0;
+        this.hideTime = 0;
         this.state = STATE_HIDING;
+    }
+
+    unhide(us) {
+        us.pendulumWalk.speed = 100;
+        this.state = STATE_WALKING;
+    }
+
+    update(us, deltaTime) {
+        if (this.state === STATE_HIDING) {
+            this.hideTime += deltaTime;
+            if (this.hideTime > this.hideDuration) {
+                this.unhide(us);
+            }
+        }
     }
 }
 
