@@ -30,9 +30,19 @@ class Behaviour extends Trait {
             if (them.vel.y > us.vel.y) {
                 this.handleStomp(us, them);
             } else {
-                them.killable.kill();
+                this.handleNudge(us, them);
             }        
         } 
+    }
+
+    handleNudge(us, them) {
+        if (us.state === STATE_WALKING) {
+            them.killable.kill();
+        } else {
+            us.pendulumWalk.enabled = true;
+            us.pendulumWalk.speed = 200;
+        }
+        
     }
 
     handleStomp(us, them) {
