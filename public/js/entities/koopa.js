@@ -105,9 +105,17 @@ class Behaviour extends Trait {
 function createKoopaFactory(sprite) {
 
     const walkAnim = sprite.animations.get('walk');
-
+    const wakeAnim = sprite.animations.get('wake');
+    
     function routeAnim(koopa) {
-        if (koopa.behaviour.state === STATE_HIDING || koopa.behaviour.state === STATE_PANIC) {
+        if (koopa.behaviour.state === STATE_HIDING) {
+            if (koopa.behaviour.hideTime > 3) {
+                return wakeAnim(koopa.behaviour.hideTime);
+            }
+            return 'hiding';
+        }
+
+        if (koopa.behaviour.state === STATE_PANIC) {
             return 'hiding';
         }
         
