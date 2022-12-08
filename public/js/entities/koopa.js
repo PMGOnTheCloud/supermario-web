@@ -18,6 +18,7 @@ class Behaviour extends Trait {
 
         this.hideTime = 0;
         this.hideDuration = 5;
+        this.panicSpeed = 220;
         this.state = STATE_WALKING;
     }
 
@@ -40,7 +41,7 @@ class Behaviour extends Trait {
             them.killable.kill();
         } else {
             us.pendulumWalk.enabled = true;
-            us.pendulumWalk.speed = 200;
+            us.pendulumWalk.speed = this.panicSpeed * Math.sign(them.vel.x);
         }
         
     }
