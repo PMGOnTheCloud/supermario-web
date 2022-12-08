@@ -1,5 +1,5 @@
 import Entity, { Trait } from "../entity.js";
-import PendulumWalkBehaviour from "../traits/pendulumwalkbehaviour.js";
+import PendulumBehaviour from "../traits/pendulumbehaviour.js";
 import Killable from "../traits/killable.js";
 import { loadSpriteSheet } from '../loaders.js';
 
@@ -70,10 +70,10 @@ class Behaviour extends Trait {
 
     hide(us) {
         us.vel.x = 0;
-        us.pendulumWalk.enabled = false;
+        us.pendulumMove.enabled = false;
 
         if (this.walkSpeed === null) {
-            this.walkSpeed = us.pendulumWalk.speed;
+            this.walkSpeed = us.pendulumMove.speed;
         }
 
         this.hideTime = 0;
@@ -81,14 +81,14 @@ class Behaviour extends Trait {
     }
 
     unhide(us) {
-        us.pendulumWalk.enabled = true;
-        us.pendulumWalk.speed = this.walkSpeed;
+        us.pendulumMove.enabled = true;
+        us.pendulumMove.speed = this.walkSpeed;
         this.state = STATE_WALKING;
     }
 
     panic(us, them) {
-        us.pendulumWalk.enabled = true;
-        us.pendulumWalk.speed = this.panicSpeed * Math.sign(them.vel.x);
+        us.pendulumMove.enabled = true;
+        us.pendulumMove.speed = this.panicSpeed * Math.sign(them.vel.x);
         this.state = STATE_PANIC;
     }
 
@@ -131,7 +131,7 @@ function createKoopaFactory(sprite) {
         koopa.size.set(16, 16);
         koopa.offset.y = 8;
 
-        koopa.addTrait(new PendulumWalkBehaviour());
+        koopa.addTrait(new PendulumBehaviour());
         koopa.addTrait(new Behaviour);
         koopa.addTrait(new Killable());
 
