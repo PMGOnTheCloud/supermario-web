@@ -38,10 +38,12 @@ class Behaviour extends Trait {
     }
 
     handleNudge(us, them) {
-        if (us.state === STATE_WALKING) {
+        if (this.state === STATE_WALKING) {
             them.killable.kill();
-        } else {
+        } else if (this.state === STATE_HIDING) {
             this.panic(us, them);
+        } else if (this.state === STATE_PANIC) {
+            them.killable.kill();
         }
         
     }
