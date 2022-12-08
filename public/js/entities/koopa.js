@@ -19,7 +19,10 @@ class Behaviour extends Trait {
 
         this.hideTime = 0;
         this.hideDuration = 5;
+
+        this.walkSpeed = null;
         this.panicSpeed = 220;
+        
         this.state = STATE_WALKING;
     }
 
@@ -43,7 +46,12 @@ class Behaviour extends Trait {
         } else if (this.state === STATE_HIDING) {
             this.panic(us, them);
         } else if (this.state === STATE_PANIC) {
-            them.killable.kill();
+            const travelDir = Math.sign(us.vel.x);
+            const impactDir = Math.sign(us.pos.x - them.pos.x);
+
+            if (travelDir !== 0 && travelDir !== impactDir) {
+                them.killable.kill();
+            }
         }
         
     }
@@ -63,12 +71,18 @@ class Behaviour extends Trait {
     hide(us) {
         us.vel.x = 0;
         us.pendulumWalk.enabled = false;
+
+        if (this.walkSpeed === null) {
+            this.walkSpeed = us.pendulumWalk.speed;
+        }
+
         this.hideTime = 0;
         this.state = STATE_HIDING;
     }
 
     unhide(us) {
         us.pendulumWalk.enabled = true;
+        us.pendulumWalk.speed = this.walkSpeed;
         this.state = STATE_WALKING;
     }
 
