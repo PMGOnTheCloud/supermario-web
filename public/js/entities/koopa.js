@@ -61,7 +61,7 @@ class Behaviour extends Trait {
             this.hide(us);
         } else if  (this.state === STATE_HIDING) {
             us.killable.kill();
-            us.vel.set(100, -150);
+            us.vel.set(Math.sign(them.vel.x) * 100, -150);
             us.canCollide = false;
         } else if (this.state === STATE_PANIC) {
             this.hide(us);
