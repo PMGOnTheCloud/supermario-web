@@ -63,9 +63,9 @@ export default class Entity {
         });
     }
 
-    obstruct(side) {
+    obstruct(side, match) {
         this.traits.forEach(traits => {
-            traits.obstruct(this, side);
+            traits.obstruct(this, side, match);
         });
     }
 
