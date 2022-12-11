@@ -7,6 +7,7 @@ import { setupKeyboard } from './input.js';
 import { createCollisionLayer } from './layers/collision.js';
 import { createCameraLayer } from './layers/camera.js';
 import { loadEntities } from './entities.js';
+import { loadFont } from './loaders/font.js';
 
 
 function createPlayerEnv(playerEntity) {
@@ -21,7 +22,10 @@ function createPlayerEnv(playerEntity) {
 async function main(canvas) {
     const context = canvas.getContext('2d');
     
-    const entityFactory = await loadEntities();
+    const [entityFactory, font] = await Promise.all([
+        loadEntities(),
+        loadFont()
+    ]); 
     const loadLevel = await createLevelLoader(entityFactory);
     
     const level = await loadLevel('1-1');
@@ -72,6 +76,8 @@ async function main(canvas) {
         }
 
         level.comp.draw(context, camera);
+
+        font.draw('A', context, 0, 0);
     }
 
     timer.start();
