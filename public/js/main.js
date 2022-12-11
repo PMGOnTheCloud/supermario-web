@@ -51,9 +51,12 @@ async function main(canvas) {
         }
     });
     */
-    /* Removed camera and collision layers for debuging atm
-    level.comp.layers.push(createCollisionLayer(level), createCameraLayer(camera));
+    /* Removed camera layer for debuging atm
+    level.comp.layers.push(createCameraLayer(camera));
     */
+
+    level.comp.layers.push(createCollisionLayer(level));
+
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
     
