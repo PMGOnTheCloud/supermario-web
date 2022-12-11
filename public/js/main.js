@@ -4,7 +4,8 @@ import Entity from './entity.js';
 import PlayerController from './traits/playercontroller.js';
 import { createLevelLoader } from './loaders/level.js';
 import { setupKeyboard } from './input.js';
-import { createCollisionLayer, createCameraLayer } from './layers.js';
+import { createCollisionLayer } from './layers/collision.js';
+import { createCameraLayer } from './layers/camera.js';
 import { loadEntities } from './entities.js';
 
 
@@ -50,9 +51,9 @@ async function main(canvas) {
         }
     });
     */
-
+    /* Removed camera and collision layers for debuging atm
     level.comp.layers.push(createCollisionLayer(level), createCameraLayer(camera));
-
+    */
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
     
