@@ -6,6 +6,7 @@ import { createLevelLoader } from './loaders/level.js';
 import { setupKeyboard } from './input.js';
 import { createCollisionLayer } from './layers/collision.js';
 import { createCameraLayer } from './layers/camera.js';
+import { createDashboardLayer } from './layers/dashboard.js';
 import { loadEntities } from './entities.js';
 import { loadFont } from './loaders/font.js';
 
@@ -60,6 +61,7 @@ async function main(canvas) {
     */
 
     level.comp.layers.push(createCollisionLayer(level));
+    level.comp.layers.push(createDashboardLayer(font));
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
@@ -76,8 +78,6 @@ async function main(canvas) {
         }
 
         level.comp.draw(context, camera);
-
-        font.draw('A', context, 0, 0);
     }
 
     timer.start();
