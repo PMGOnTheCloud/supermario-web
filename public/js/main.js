@@ -32,39 +32,14 @@ async function main(canvas) {
     const level = await loadLevel('1-1');
 
     const camera = new Camera();
-    window.camera = camera;
     
     const mario = entityFactory.mario();
-    
-    /*
-    mario.addTrait({
-        NAME: 'hacktrait',
-        spawnTimeout: 0,
-        obstruct() {
-
-        },
-        update(mario, deltaTime) {
-            if (this.spawnTimeout > 0.1 && mario.vel.y < 0) {
-                const spawn = createMario();
-                spawn.pos.x = mario.pos.x;
-                spawn.pos.y = mario.pos.y;
-                spawn.vel.y = mario.vel.y - 200;
-                level.entities.add(spawn);
-                this.spawnTimeout = 0;
-            }
-            this.spawnTimeout += deltaTime;
-        }
-    });
-    */
-    /* Removed camera layer for debuging atm
-    level.comp.layers.push(createCameraLayer(camera));
-    */
-
-    level.comp.layers.push(createCollisionLayer(level));
-    level.comp.layers.push(createDashboardLayer(font));
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
+    
+    level.comp.layers.push(createCollisionLayer(level));
+    level.comp.layers.push(createDashboardLayer(font, playerEnv));
     
     const input = setupKeyboard(mario);
     input.listenTo(window);
