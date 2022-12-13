@@ -1,18 +1,23 @@
 import Entity, { Sides, Trait } from "../entity.js";
 import { Vec2 } from "../math.js";
 
-export default class PendulumWalkBehaviour extends Trait {
+export default class PlayerController extends Trait {
     constructor() {
         super('playerController');
 
         this.checkpoint = new Vec2(0, 0);
         this.player = null;
         this.time = 300;
+        this.score = 0;
     
     }
 
     setPlayer(entity) {
         this.player = entity;
+
+        this.player.stomper.onStomp = () => {
+            this.score += 100;
+        }
     }
 
     update(entity, deltaTime, level) {
