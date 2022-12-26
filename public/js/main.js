@@ -33,7 +33,11 @@ async function main(canvas) {
     const loadAudio = createAudioLoader(audioContext);
     loadAudio('/audio/jump.ogg')
         .then(buffer => {
-            console.log(buffer)
+            console.log(buffer);
+            const source = audioContext.createBufferSource();
+            source.connect(audioContext.destination);
+            source.buffer = buffer;
+            source.start(0);
         })
 
     const loadLevel = await createLevelLoader(entityFactory);
@@ -68,4 +72,5 @@ async function main(canvas) {
 };
 
 const canvas = document.getElementById('screen');
+window.addEventListener('click', () => main(canvas));
 main(canvas);
