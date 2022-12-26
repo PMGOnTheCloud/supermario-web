@@ -72,5 +72,9 @@ async function main(canvas) {
 };
 
 const canvas = document.getElementById('screen');
-window.addEventListener('click', () => main(canvas));
-main(canvas);
+
+const start = () => {
+    window.removeEventListener('click', start);
+    main(canvas);
+}
+window.addEventListener('click', start);
