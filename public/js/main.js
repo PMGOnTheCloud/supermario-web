@@ -53,7 +53,6 @@ async function main(canvas) {
     loadAudio('/audio/jump.ogg')
         .then(buffer => {
             audioBoard.addAudio('jump', buffer);
-            audioBoard.playAudio('jump');
         })
 
     const loadLevel = await createLevelLoader(entityFactory);
