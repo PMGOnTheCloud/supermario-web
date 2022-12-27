@@ -75,7 +75,7 @@ async function main(canvas) {
 
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {
-        level.update(deltaTime);
+        level.update(deltaTime, audioBoard);
 
         if (mario.pos.x > 100) {
             camera.pos.x = Math.max(0, mario.pos.x - 100);
