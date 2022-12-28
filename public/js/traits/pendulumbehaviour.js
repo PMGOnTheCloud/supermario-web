@@ -14,7 +14,7 @@ export default class PendulumBehaviour extends Trait {
         }
     }
 
-    update(entity, deltaTime) {
+    update(entity) {
         if (this.enabled) {
             entity.vel.x = this.speed;
         }

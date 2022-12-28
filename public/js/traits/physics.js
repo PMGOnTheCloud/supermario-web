@@ -6,7 +6,7 @@ export default class Physics extends Trait {
     
     }
 
-    update(entity, deltaTime, level) {
+    update(entity, {deltaTime}, level) {
         entity.pos.x += entity.vel.x * deltaTime;
         level.tileCollider.checkX(entity);
         
