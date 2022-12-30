@@ -28,9 +28,9 @@ export default class Stomper extends Trait {
         }
     }
 
-    update(entity) {
+    update(entity, {audioContext}) {
         if (this.didStomp) {
-            entity.audio.playAudio('stomp');
+            entity.audio.playAudio('stomp', audioContext);
             this.didStomp = false;
         }
     }
