@@ -26,24 +26,12 @@ function createPlayerEnv(playerEntity) {
 
 async function main(canvas) {
     const context = canvas.getContext('2d');
+    const audioContext = new AudioContext();
     
     const [entityFactory, font] = await Promise.all([
-        loadEntities(),
+        loadEntities(audioContext),
         loadFont()
     ]);
-    
-    const audioContext = new AudioContext();
-    const audioBoard = new AudioBoard(audioContext);
-    const loadAudio = createAudioLoader(audioContext);
-    loadAudio('/audio/jump.ogg')
-        .then(buffer => {
-            audioBoard.addAudio('jump', buffer);
-        });
-
-    loadAudio('/audio/stomp.ogg')
-        .then(buffer => {
-            audioBoard.addAudio('stomp', buffer);
-        });
 
     const loadLevel = await createLevelLoader(entityFactory);
     
@@ -63,8 +51,7 @@ async function main(canvas) {
     input.listenTo(window);
 
     const gameContext = {
-        audioBoard,
-        deltaTime: null,
+        deltaTime: null
     }
 
     const timer = new Timer(1/60);

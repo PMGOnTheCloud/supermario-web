@@ -4,18 +4,24 @@ import Go from "../traits/go.js";
 import Killable from "../traits/killable.js";
 import Solid from "../traits/solid.js";
 import Stomper from "../traits/stomper.js";
-import { loadSpriteSheet } from '../loaders.js';
 import Physics from "../traits/physics.js";
+import { loadSpriteSheet } from '../loaders.js';
+import { loadAudioBoard } from "../loaders/audio.js";
 
 const SLOW_DRAG = 1/1000;
 const FAST_DRAG = 1/5000;
 
-export function loadMario() {
-    return loadSpriteSheet('mario')
-        .then(createMarioFactory);   
+export function loadMario(audioContext) {    
+    return Promise.all([
+        loadSpriteSheet('mario'),
+        loadAudioBoard('mario', audioContext)
+    ])
+    .then(([sprite, audio]) => {
+        return createMarioFactory(sprite, audio);
+    });
 }
 
-function createMarioFactory(sprite) {
+function createMarioFactory(sprite, audio) {
 
     const runAnim = sprite.animations.get('run');
         
@@ -43,6 +49,9 @@ function createMarioFactory(sprite) {
 
     return function createMario() {
         const mario = new Entity();
+        
+        mario.audio = audio;
+        
         mario.size.set(14,16);
         
         mario.addTrait(new Physics());
