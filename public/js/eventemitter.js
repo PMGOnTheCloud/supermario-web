@@ -11,7 +11,7 @@ export default class EventEmitter {
     emit(name, ...args) {
         this.listeners.forEach(listener => {
             if (listener.name === name) {
-                this.listener.callback(...args);
+                listener.callback(...args);
             }
         });
     }
