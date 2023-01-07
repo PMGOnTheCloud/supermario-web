@@ -1,5 +1,6 @@
 import Entity, { Trait } from "../entity.js";
 import Killable from "../traits/killable.js";
+import Velocity from "../traits/velocity.js";
 import { loadSpriteSheet } from '../loaders.js';
 
 
@@ -17,7 +18,9 @@ function createBulletFactory(sprite) {
     return function createBullet() {
         const bullet = new Entity();
         bullet.size.set(16, 14);
+        bullet.vel.set(80, 0);
 
+        bullet.addTrait(new Velocity());
         bullet.addTrait(new Behaviour());
         bullet.addTrait(new Killable());
 
