@@ -1,6 +1,7 @@
 import Entity, { Trait } from "../entity.js";
 import Killable from "../traits/killable.js";
 import Velocity from "../traits/velocity.js";
+import Gravity from "../traits/gravity.js";
 import { loadSpriteSheet } from '../loaders.js';
 
 
@@ -33,6 +34,7 @@ function createBulletFactory(sprite) {
 class Behaviour extends Trait {
     constructor() {
         super('behaviour');
+        this.gravity = new Gravity();
     }
 
     collides(us, them) {
@@ -43,9 +45,16 @@ class Behaviour extends Trait {
         if (them.stomper) {
             if (them.vel.y > us.vel.y) {
                 us.killable.kill();
+                us.vel.set(100, -200);
             } else {
                 them.killable.kill();
             }        
         } 
+    }
+
+    update(entity, gameContext, level) {
+        if (entity.killable.dead) {
+            this.gravity.update(entity, gameContext, level);
+        }
     }
 }
