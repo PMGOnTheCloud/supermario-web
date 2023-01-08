@@ -3,17 +3,21 @@ import Emitter from "../traits/emitter.js";
 import { loadAudioBoard } from "../loaders/audio.js";
 
 
-export function loadCannon(audioContext) {    
-    return loadAudioBoard('cannon', audioContext)
+export function loadCannon(audioContext, entityFactories) {    
+    return loadAudioBoard('mario', audioContext)
     .then(audio => {
-        return createCannonFactory(audio);
+        return createCannonFactory(audio, entityFactories);
     });
 }
 
-function createCannonFactory(audio) {
+function createCannonFactory(audio, entityFactories) {
 
-    function emitBullet(entity, level) {
-        console.log('Bullet fired', entity, level);
+    function emitBullet(cannon, level) {
+        const bullet = entityFactories.bullet();
+
+        bullet.pos.copy(cannon.pos);
+
+        level.entities.add(bullet);
     }
 
     return function createCannon() {
@@ -23,7 +27,6 @@ function createCannonFactory(audio) {
 
         const emitter = new Emitter();
         emitter.emitters.push(emitBullet);
-
         cannon.addTrait(emitter);
 
         return cannon;
