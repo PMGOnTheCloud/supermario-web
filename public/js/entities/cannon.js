@@ -4,7 +4,7 @@ import { loadAudioBoard } from "../loaders/audio.js";
 
 
 export function loadCannon(audioContext, entityFactories) {    
-    return loadAudioBoard('mario', audioContext)
+    return loadAudioBoard('cannon', audioContext)
     .then(audio => {
         return createCannonFactory(audio, entityFactories);
     });
@@ -17,6 +17,8 @@ function createCannonFactory(audio, entityFactories) {
 
         bullet.pos.copy(cannon.pos);
 
+
+        cannon.sounds.add('shoot');
         level.entities.add(bullet);
     }
 
