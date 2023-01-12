@@ -1,7 +1,5 @@
 import Camera from './camera.js';
 import Timer from './timer.js';
-import Entity from './entity.js';
-import PlayerController from './traits/playercontroller.js';
 import { createLevelLoader } from './loaders/level.js';
 import { setupKeyboard } from './input.js';
 import { createCollisionLayer } from './layers/collision.js';
@@ -9,18 +7,7 @@ import { createCameraLayer } from './layers/camera.js';
 import { createDashboardLayer } from './layers/dashboard.js';
 import { loadEntities } from './entities.js';
 import { loadFont } from './loaders/font.js';
-
-
-function createPlayerEnv(playerEntity) {
-    const playerEnv = new Entity();
-    const playerControl = new PlayerController();
-    playerControl.checkpoint.set(64, 64);
-    playerControl.setPlayer(playerEntity);
-    playerEnv.addTrait(playerControl);
-    return playerEnv;
-}
-
-
+import { createPlayerEnv } from './player.js';
 
 async function main(canvas) {
     const context = canvas.getContext('2d');
