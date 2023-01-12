@@ -15,6 +15,7 @@ export function loadCannon(audioContext, entityFactories) {
 function createCannonFactory(audio, entityFactories) {
 
     function emitBullet(cannon, level) {
+        let dir = 1;
         for (const player of findPlayers(level)) {
             if (player.pos.x > cannon.pos.x - HOLD_FIRE_THRESHOLD
             && player.pos.x < cannon.pos.x + HOLD_FIRE_THRESHOLD) {
@@ -25,6 +26,7 @@ function createCannonFactory(audio, entityFactories) {
         const bullet = entityFactories.bullet();
 
         bullet.pos.copy(cannon.pos);
+        bullet.vel.set(80 * dir, 0);
 
 
         cannon.sounds.add('shoot');
