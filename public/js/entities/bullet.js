@@ -13,7 +13,7 @@ export function loadBullet() {
 function createBulletFactory(sprite) {
 
     function drawBullet(context) {
-        sprite.draw('bullet', context, 0, 0);
+        sprite.draw('bullet', context, 0, 0, this.vel.x < 0);
     }
 
     return function createBullet() {
