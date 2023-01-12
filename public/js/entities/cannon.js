@@ -1,6 +1,7 @@
 import Entity from "../entity.js";
 import Emitter from "../traits/emitter.js";
 import { loadAudioBoard } from "../loaders/audio.js";
+import { findPlayers } from "../player.js";
 
 
 export function loadCannon(audioContext, entityFactories) {    
@@ -13,6 +14,10 @@ export function loadCannon(audioContext, entityFactories) {
 function createCannonFactory(audio, entityFactories) {
 
     function emitBullet(cannon, level) {
+        for (const player of findPlayers(level)) {
+            
+        }
+
         const bullet = entityFactories.bullet();
 
         bullet.pos.copy(cannon.pos);

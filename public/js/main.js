@@ -7,7 +7,7 @@ import { createCameraLayer } from './layers/camera.js';
 import { createDashboardLayer } from './layers/dashboard.js';
 import { loadEntities } from './entities.js';
 import { loadFont } from './loaders/font.js';
-import { createPlayerEnv } from './player.js';
+import { createPlayerEnv, createPlayer } from './player.js';
 
 async function main(canvas) {
     const context = canvas.getContext('2d');
@@ -24,7 +24,7 @@ async function main(canvas) {
 
     const camera = new Camera();
     
-    const mario = entityFactory.mario();
+    const mario = createPlayer(entityFactory.mario());
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
