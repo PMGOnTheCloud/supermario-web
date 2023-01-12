@@ -3,6 +3,7 @@ import Emitter from "../traits/emitter.js";
 import { loadAudioBoard } from "../loaders/audio.js";
 import { findPlayers } from "../player.js";
 
+const HOLD_FIRE_THRESHOLD = 30;
 
 export function loadCannon(audioContext, entityFactories) {    
     return loadAudioBoard('cannon', audioContext)
@@ -15,7 +16,10 @@ function createCannonFactory(audio, entityFactories) {
 
     function emitBullet(cannon, level) {
         for (const player of findPlayers(level)) {
-            
+            if (player.pos.x > cannon.pos.x - HOLD_FIRE_THRESHOLD
+            && player.pos.x < cannon.pos.x + HOLD_FIRE_THRESHOLD) {
+                return;
+            }
         }
 
         const bullet = entityFactories.bullet();
